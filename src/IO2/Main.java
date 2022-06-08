@@ -4,21 +4,28 @@ import java.io.*;
 
 public class Main {
 
-    public static main() throws IOException {
+    public static void main(String[] args) throws IOException {
 
         int bytes;
+        int temp;
 
-        InputStream a = System.in;
-        InputStreamReader b = new InputStreamReader(a);
-        BufferedReader reader = new BufferedReader(b);
+        InputStream is = System.in;
+        InputStreamReader isr = new InputStreamReader(is);
+        BufferedReader reader = new BufferedReader(isr);
 
-        OutputStreamWriter sw = new OutputStreamWriter();
+        OutputStream os = System.out;
+        OutputStreamWriter osw = new OutputStreamWriter(os);
 
         while ((bytes = reader.read()) > -1){
-            if (bytes != 13) {
-                reader.close();
+            if (bytes == 13) {
+                if ((temp = reader.read()) == 10 ) {
+                    bytes = temp;
+                }
             }
+            osw.write(bytes);
         }
-        return;
+        reader.close();
+        osw.flush();
+        osw.close();
     }
 }
