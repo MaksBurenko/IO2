@@ -15,17 +15,23 @@ public class Main {
 
         OutputStream os = System.out;
         OutputStreamWriter osw = new OutputStreamWriter(os);
+        BufferedWriter bw = new BufferedWriter(osw);
 
         while ((bytes = reader.read()) > -1){
             if (bytes == 13) {
                 if ((temp = reader.read()) == 10 ) {
                     bytes = temp;
+                    osw.write(bytes);
+                } else {
+                    osw.write(bytes);
+                    osw.write(temp);
                 }
+            }else{
+                osw.write(bytes);
             }
-            osw.write(bytes);
         }
         reader.close();
-        osw.flush();
-        osw.close();
+        bw.flush();
+        bw.close();
     }
 }
